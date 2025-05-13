@@ -32,14 +32,39 @@ class Board:
 
     def is_way_clear(self, sx, sy, x, y):
         if isinstance(self.board[sx][sy], Knight):
-            if self.board[x][y] is None or self.board[x][y].color != self.board[sx][sy].color:
+            if self.board[x][y] is None or self.board[x][y].get_color() != self.board[sx][sy].get_color():
                 return True
             else:
                 return False
 
-        # !!!!!!!!!!
+        if (sx == x) or (sy == y):
 
-        return False
+            if sx == x:
+                mn = min(sy, y)
+                for ny in range(abs(sy - y)):
+                    if (mn + ny) == y:
+                        if (self.board[x][(mn + ny)] is not None or
+                                (self.board[x][(mn + ny)].get_color() == self.board[x][y].get_color())):
+                            return False
+                        continue
+                    if self.board[x][(mn + ny)] is not None:
+                        return False
+
+            else:
+                mn = min(sx, x)
+                for nx in range(abs(sx - x)):
+                    if (mn + nx) == x:
+                        if (self.board[(mn + nx)][y] is not None or
+                                (self.board[(mn + nx)][y].get_color() == self.board[x][y].get_color())):
+                            return False
+                        continue
+                    if self.board[(mn + nx)][y] is not None:
+                        return False
+
+        else:
+            pass #11111111111111!!!!!!!
+
+        return True
 
     def move_piece(self, sx, sy, x, y):
         if correct_cords(x, y) and (self.board[sx][sy] is not None) and (self.board[sx][sy].color == self.cpc) \
