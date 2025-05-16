@@ -43,9 +43,9 @@ class Board:
                 mn = min(sy, y)
                 for ny in range(abs(sy - y)):
                     if (mn + ny) == y:
-                        if (self.board[x][(mn + ny)] is not None or
-                                (self.board[x][(mn + ny)].get_color() == self.board[x][y].get_color())):
-                            return False
+                        if self.board[x][(mn + ny)] is not None:
+                            if self.board[x][(mn + ny)].get_color() == self.board[x][y].get_color():
+                                return False
                         continue
                     if self.board[x][(mn + ny)] is not None:
                         return False
@@ -54,22 +54,27 @@ class Board:
                 mn = min(sx, x)
                 for nx in range(abs(sx - x)):
                     if (mn + nx) == x:
-                        if (self.board[(mn + nx)][y] is not None or
-                                (self.board[(mn + nx)][y].get_color() == self.board[x][y].get_color())):
-                            return False
+                        if self.board[(mn + nx)][y] is not None:
+                            if self.board[(mn + nx)][y].get_color() == self.board[x][y].get_color():
+                                return False
                         continue
                     if self.board[(mn + nx)][y] is not None:
                         return False
 
         else:
-            pass #11111111111111!!!!!!!
+            pass  # 11111111111111!!!!!!!
 
         return True
 
     def move_piece(self, sx, sy, x, y):
-        if correct_cords(x, y) and (self.board[sx][sy] is not None) and (self.board[sx][sy].color == self.cpc) \
-                and not (sx == x and sy == y) and self.is_way_clear(sx, sy, x, y):
-            pass
+        if correct_cords(x, y) and (self.board[sx][sy] is not None) and (self.board[sx][sy].can_move(sx, sy, x, y)) \
+                and (self.board[sx][sy].color == self.cpc) and not (sx == x and sy == y) \
+                and self.is_way_clear(sx, sy, x, y):
+            self.board[x][y] = self.board[sx][sy]
+            self.board[sx][sy] = None
+            return True
+        return False
 
-    def is_under_attack(self, x, y, color):
-        return
+
+def is_under_attack(self, x, y, color):
+    return
