@@ -1,10 +1,13 @@
 import tkinter
 from tkinter import PhotoImage
+from tkinter import messagebox as mb
 
 from board import *
 
 LIGHT = '#ec972a'
 DARK = '#372207'
+G_LIGHT = '#08f02b'
+G_DARK = '#0b9e21'
 WHITE = 0
 BLACK = 1
 WIDTH = 560
@@ -19,6 +22,7 @@ def cell_color(xn, yn):
 
 b = Board()
 master = tkinter.Tk()
+master.iconbitmap('sprites/icon.ico')
 master.title('Chess')
 master.geometry(f'{WIDTH}x{HEIGHT}')
 master.resizable(height=False, width=False)
@@ -47,6 +51,13 @@ def print_board():
             lt = (WIDTH // 8 * y, HEIGHT // 8 * x)
             rb = (WIDTH // 8 * (y + 1), HEIGHT // 8 * (x + 1))
             canvas.create_rectangle(lt, rb, fill=bg)
+            if b.chosen is not None:
+                if (x, y) == b.chosen:
+                    if cell_color(x, y) == LIGHT:
+                        cl = G_LIGHT
+                    else:
+                        cl = G_DARK
+                    canvas.create_rectangle(lt, rb, fill=cl)
 
             if t[x][y] is not None:
                 px = HEIGHT // 8 * y
@@ -69,6 +80,38 @@ def print_board():
                 else:
                     canvas.create_image(px, py, anchor=tkinter.NW, image=tm['p'])
 
+
+def click(event):
+    x, y = event.y // (HEIGHT // 8), event.x // (WIDTH // 8)
+    cell = b.get_board()[x][y]
+    if b.chosen is None:
+        if cell is not None and cell.get_color() == b.cpc:
+            b.chosen = (x, y)
+            print_board()
+    else:
+        if (x, y) == b.chosen:
+            b.chosen = None
+            print_board()
+        else:
+            if b.move_piece(b.chosen[0], b.chosen[1], x, y):
+                b.chosen = None
+                if b.cpc == WHITE:
+                    master.title('Chess  -  Ход белых')
+                else:
+                    master.title('Chess  -  Ход чёрных')
+                print_board()
+
+                if b.cpc == BLACK and b.is_under_attack(b.w_king_cords[0], b.w_king_cords[1], WHITE):
+                    msg = 'Чёрные победили'
+                    mb.showinfo('Окончание игры', msg)
+                elif b.cpc == WHITE and b.is_under_attack(b.b_king_cords[0], b.b_king_cords[1], BLACK):
+                    msg = 'Белые победили'
+                    mb.showinfo('Окончание игры', msg)
+
+
+canvas.bind('<Button-1>', click)
+master.title('Chess  -  Ход белых')
+print_board()
 
 canvas.pack(expand=True, fill=tkinter.BOTH)
 master.mainloop()

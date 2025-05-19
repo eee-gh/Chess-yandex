@@ -12,15 +12,15 @@ class Piece:
 class Pawn(Piece):
     def __init__(self, c: int):
         super().__init__(c)
-        self.on_first_row = True
+        self.did_not_move = True
 
     def can_move(self, sx, sy, x, y):
         if self.color:
-            if x - sx == 1 or (self.on_first_row and x - sx == 2):
+            if x - sx == 1 or (self.did_not_move and x - sx == 2):
                 return True
             return False
         else:
-            if sx - x == 1 or (self.on_first_row and sx - x == 2):
+            if sx - x == 1 or (self.did_not_move and sx - x == 2):
                 return True
             return False
 
