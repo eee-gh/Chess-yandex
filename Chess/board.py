@@ -80,8 +80,8 @@ class Board:
                         return True
                     return False
                 else:
-                    if (board[x][y] is not None and
-                            board[x][y].get_color() != board[sx][sy].get_color()):
+                    if (board[x][y] is not None and board[x][y].get_color() != board[sx][sy].get_color()
+                            and abs(sy - y) == 1):
                         return True
                     return False
 
