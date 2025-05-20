@@ -105,9 +105,13 @@ def click(event):
                 if b.cpc == BLACK and b.is_under_attack(b.w_king_cords[0], b.w_king_cords[1], WHITE):
                     msg = 'Чёрные победили'
                     mb.showinfo('Окончание игры', msg)
+                    b.restart()
+                    print_board()
                 elif b.cpc == WHITE and b.is_under_attack(b.b_king_cords[0], b.b_king_cords[1], BLACK):
                     msg = 'Белые победили'
                     mb.showinfo('Окончание игры', msg)
+                    b.restart()
+                    print_board()
 
 
 canvas.bind('<Button-1>', click)

@@ -167,3 +167,6 @@ class Board:
                         if self.is_way_clear(x, y, sx, sy, b):
                             return True
         return False
+
+    def restart(self):
+        self.__init__()
