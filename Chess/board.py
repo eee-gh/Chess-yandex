@@ -11,14 +11,14 @@ def correct_cords(x, y):
 class Board:
     def __init__(self):
         self.board = [
-            [Rook(1), Knight(1), Bishop(1), King(1), Queen(1), Bishop(1), Knight(1), Rook(1)],
+            [Rook(1), Knight(1), Bishop(1), Queen(1), King(1), Bishop(1), Knight(1), Rook(1)],
             [Pawn(1), Pawn(1), Pawn(1), Pawn(1), Pawn(1), Pawn(1), Pawn(1), Pawn(1)],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [Pawn(0), Pawn(0), Pawn(0), Pawn(0), Pawn(0), Pawn(0), Pawn(0), Pawn(0)],
-            [Rook(0), Knight(0), Bishop(0), King(0), Queen(0), Bishop(0), Knight(0), Rook(0)],
+            [Rook(0), Knight(0), Bishop(0), Queen(0), King(0), Bishop(0), Knight(0), Rook(0)],
         ]
         self.w_king_cords = (7, 3)
         self.b_king_cords = (0, 3)
