@@ -106,11 +106,13 @@ def click(event):
                     msg = 'Чёрные победили'
                     mb.showinfo('Окончание игры', msg)
                     b.restart()
+                    master.title('Chess  -  Ход белых')
                     print_board()
                 elif b.cpc == WHITE and b.is_under_attack(b.b_king_cords[0], b.b_king_cords[1], BLACK):
                     msg = 'Белые победили'
                     mb.showinfo('Окончание игры', msg)
                     b.restart()
+                    master.title('Chess  -  Ход белых')
                     print_board()
 
 
