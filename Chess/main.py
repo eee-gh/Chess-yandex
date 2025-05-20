@@ -43,6 +43,7 @@ canvas = tkinter.Canvas(master, bg='#0aa935', relief=tkinter.FLAT)
 
 
 def print_board():
+    canvas.delete('all')
     t = b.get_board()
     for x in range(8):
         for y in range(8):
